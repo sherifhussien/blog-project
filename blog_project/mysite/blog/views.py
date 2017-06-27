@@ -28,14 +28,16 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin,CreateView):
     login_url='/login/'
     redirect_field_name= 'blog/post_detail.html'
-    from_class=PostForm  #instead of fields=('author','text')
+    form_class=PostForm  #instead of fields=('author','text')
     model=Post
 
 class PostUpdateView(LoginRequiredMixin,UpdateView):
-    login_url='/login/'
-    redirect_field_name= 'blog/post_detail.html'
-    from_class=PostForm
-    model=Post
+    login_url = '/login/'
+    redirect_field_name = 'blog/post_detail.html'
+
+    form_class = PostForm
+
+    model = Post
 
 class PostDeleteView(LoginRequiredMixin,DeleteView):
     success_url=reverse_lazy('post_list')
@@ -71,10 +73,10 @@ def add_comment_to_post(request,pk):
 
 
 @login_required
-def comment_approve(request,pk):
-    comment=get_object_or_404(Comment,pk=pk)
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
-    return redirect('post_detail',pk=comment.post.pk) #sends another request to the given url.
+    return redirect('post_detail', pk=comment.post.pk)#sends another request to the given url.
 
 @login_required
 def comment_remove(request,pk):

@@ -4,9 +4,10 @@
 
     <h1>New Comment</h1>
     {% csrf_token %}
-    {% form.as_p %}
-    <button type="submit" class="save btn btn-defualt">Post Comment</button>
+    {{ form.as_p }}
+    <input type="submit" class="save btn btn-defualt" value="Post Comment"/>
   </form>
+
   <script>
     var editor=new MediumEditor('.editable');
   </script>
